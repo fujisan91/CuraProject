@@ -1,17 +1,21 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
 
 if (!firebase.apps.length) {
-  firebase.initializeApp(
-    {
-        apiKey: "AIzaSyB-WQgBjKH5MQMEpaeFNvAWhyVu0iD6ye0",
-        authDomain: "cura-ba6b2.firebaseapp.com",
-        databaseURL: "https://cura-ba6b2.firebaseio.com",
-        projectId: "cura-ba6b2",
-        storageBucket: "",
-        messagingSenderId: "465234950141",
-        appId: "1:465234950141:web:d912080c14873638c28b94"
-    }
-  )
+  firebase.initializeApp({
+    apiKey: process.env.APIKEY,
+    authDomain: process.env.AUTHDOMAIN,
+    databaseURL: process.env.DATABASEURL,
+    projectId: process.env.PROJECTID,
+    storageBucket: process.env.STORAGEBUCKET,
+    messagingSenderId: process.env.MESSAGINGSENDERID,
+    appId: process.env.APPID
+  })
 }
 
-export default firebase
+export default (context, inject) => {
+  inject('firebase', firebase)
+  inject('firestore', firebase.firestore())
+  inject('auth', firebase.auth())
+}
