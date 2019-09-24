@@ -20,14 +20,6 @@ export const mutations = {
 }
 
 export const acttions = {
-  loadOnlineUsers({ commit }) {
-    this.$firestore.ref('presence').on('value', function(snapshot) {
-      const result = []
-      result[0] = snapshot.numChildren()
-      result[1] = snapshot.val()
-      commit('setOnlineUsers', result)
-    })
-  },
   clearError({ commit }) {
     commit('clearError')
   }
